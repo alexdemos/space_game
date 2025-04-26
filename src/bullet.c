@@ -14,6 +14,7 @@ void initBullet(Spaceship *spaceship, Bullet** bullets, int current){
                         (bullet->rectangle.height / 2);
     bullet->damage = spaceship->damage;
     bullet->speed = spaceship->bullet_speed;
+    bullet->range = 300;
     bullet->active = 1;
 }
 
@@ -45,8 +46,16 @@ void updateBullet(Bullet *bullet){
     if (bullet->active == 1){
             DrawRectangleRec(bullet->rectangle, GREEN);
             bullet->rectangle.x += bullet->speed;
-            if (bullet->rectangle.x > GetScreenWidth() + 30){
-                bullet->active = 0;
+            bullet->range -= bullet->speed;
+            if (bullet->range <= 0){
+                clearBullet(bullet);
             }
         }
+}
+
+void clearBullet(Bullet *bullet){
+    bullet->active = 0;
+    bullet->rectangle.width = 0;
+    bullet->rectangle.height = 0;
+    bullet->damage = 0;
 }

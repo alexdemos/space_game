@@ -12,6 +12,7 @@ Spaceship initSpaceship(){
     spaceship.damage = 10;
     spaceship.fire_rate = 10;
     spaceship.bullet_speed = 10;
+    spaceship.health = 3;
 
     return spaceship;
 }

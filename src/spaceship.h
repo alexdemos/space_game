@@ -5,10 +5,11 @@
 typedef struct Spaceship
 {
     Rectangle rectangle;
-    float speed;
-    float damage;
-    float fire_rate;
-    float bullet_speed;
+    int speed;
+    int damage;
+    int fire_rate;
+    int bullet_speed;
+    int health;
 } Spaceship;
 
 Spaceship initSpaceship();

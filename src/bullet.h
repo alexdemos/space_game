@@ -6,8 +6,10 @@
 typedef struct bullet
 {
     Rectangle rectangle;
-    float damage;
-    float speed;
+    int damage;
+    int speed;
+    int range;
+    int distance;
     int active;
 } Bullet;
 
@@ -16,5 +18,6 @@ void initBullets(Bullet **bullets, int maxBullets);
 void fireBullets(Bullet **bullets, Spaceship *spaceship, int *current, int maxBullets, int *fireRate);
 void updateBullets(Bullet **bullets, int maxBullets);
 void updateBullet(Bullet *bullet);
+void clearBullet(Bullet *bullet);
 
 #endif

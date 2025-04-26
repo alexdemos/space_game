@@ -4,7 +4,13 @@
 #include <stdlib.h>
 /*
 Enemies
-Set up GitHub
+-health
+-patterns
+-health bar
+Point System
+RogueLite upgrades
+Menu
+Heart Containers
 */
 
 //------------------------------------------------------------------------------------
