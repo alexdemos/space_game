@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "name": "Debug raylib C project",
+          "type": "cppdbg",  // Using C++ debugging type for simplicity
+          "request": "launch",
+          "program": "${workspaceFolder}/my_game",  // Path to the compiled executable
+          "args": [],
+          "stopAtEntry": false,
+          "cwd": "${workspaceFolder}",
+          "environment": [],
+          "externalConsole": true,  // Open an external console window
+          "MIMode": "lldb",  // Use LLDB debugger on macOS
+          "preLaunchTask": "build raylib project",  // Build the project before launching
+          "logging": {
+              "moduleLoad": false
+          }
+      }
+  ]
+}
