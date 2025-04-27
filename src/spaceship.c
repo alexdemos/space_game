@@ -4,6 +4,7 @@
 
 Spaceship initSpaceship(){
     Spaceship spaceship;
+    spaceship.color = BLUE;
     spaceship.rectangle.x = 200;
     spaceship.rectangle.y = GetScreenHeight() / 2;
     spaceship.rectangle.width = 50;
@@ -15,6 +16,11 @@ Spaceship initSpaceship(){
     spaceship.health = 3;
 
     return spaceship;
+}
+
+void updateSpaceship(Spaceship *spaceship){
+    updateSpaceshipPos(spaceship);
+    spaceship->fire_rate -= 1;
 }
 
 void updateSpaceshipPos(Spaceship *spaceship){
@@ -35,5 +41,5 @@ void updateSpaceshipPos(Spaceship *spaceship){
 }
 
 void drawSpaceship(Spaceship *spaceship){
-    DrawRectangleRec(spaceship->rectangle, RED);
+    DrawRectangleRec(spaceship->rectangle, spaceship->color);
 }

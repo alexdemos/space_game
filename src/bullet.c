@@ -5,7 +5,7 @@
 void initBullet(Spaceship *spaceship, Bullet** bullets, int current){
     Bullet *bullet = bullets[current];
     bullet->rectangle.height = 5;
-    bullet->rectangle.width = 15;
+    bullet->rectangle.width = 10;
     bullet->rectangle.x = spaceship->rectangle.x + \
                           spaceship->rectangle.width -\
                           bullet->rectangle.width;
@@ -27,11 +27,11 @@ void initBullets(Bullet **bullets, int maxBullets){
     }
 }
 
-void fireBullets(Bullet **bullets, Spaceship *spaceship, int *current, int maxBullets, int *fireRate){
-    if (IsKeyDown(KEY_SPACE) && *fireRate <= 0){
+void fireBullets(Bullet **bullets, Spaceship *spaceship, int *current, int maxBullets){
+    if (IsKeyDown(KEY_SPACE) && spaceship->fire_rate <= 0){
         initBullet(spaceship, bullets, *current);
         *current = (*current + 1) % maxBullets;
-        *fireRate = 10;
+        spaceship->fire_rate = 10;
     }
 }
 
@@ -44,13 +44,23 @@ void updateBullets(Bullet **bullets, int maxBullets){
 
 void updateBullet(Bullet *bullet){
     if (bullet->active == 1){
-            DrawRectangleRec(bullet->rectangle, GREEN);
             bullet->rectangle.x += bullet->speed;
             bullet->range -= bullet->speed;
             if (bullet->range <= 0){
                 clearBullet(bullet);
             }
         }
+}
+
+void drawBullets(Bullet **bullets, int maxBullets){
+    int i;
+    for (i=0; i<maxBullets; i++) {
+        drawBullet(bullets[i]);
+    }
+}
+
+void drawBullet(Bullet *bullet){
+    DrawRectangleRec(bullet->rectangle, GREEN);
 }
 
 void clearBullet(Bullet *bullet){

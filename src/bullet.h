@@ -15,9 +15,11 @@ typedef struct bullet
 
 void initBullet(Spaceship *spaceship, Bullet** bullets, int current);
 void initBullets(Bullet **bullets, int maxBullets);
-void fireBullets(Bullet **bullets, Spaceship *spaceship, int *current, int maxBullets, int *fireRate);
+void fireBullets(Bullet **bullets, Spaceship *spaceship, int *current, int maxBullets);
 void updateBullets(Bullet **bullets, int maxBullets);
 void updateBullet(Bullet *bullet);
+void drawBullets(Bullet **bullets, int maxBullets);
+void drawBullet(Bullet *bullet);
 void clearBullet(Bullet *bullet);
 
 #endif

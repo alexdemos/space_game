@@ -5,6 +5,7 @@
 typedef struct Spaceship
 {
     Rectangle rectangle;
+    Color color;
     int speed;
     int damage;
     int fire_rate;
@@ -14,6 +15,7 @@ typedef struct Spaceship
 
 Spaceship initSpaceship();
 
+void updateSpaceship(Spaceship *spaceship);
 void updateSpaceshipPos(Spaceship *spaceship);
 void drawSpaceship(Spaceship *spaceship);
 void fire(Spaceship *spaceship);
