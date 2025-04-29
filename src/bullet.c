@@ -18,13 +18,15 @@ void initBullet(Spaceship *spaceship, Bullet** bullets, int bullet_count){
     bullet->active = 1;
 }
 
-void initBullets(Bullet **bullets, int maxBullets){
+Bullet** initBullets(int maxBullets){
+    Bullet **bullets = malloc(sizeof(*bullets) * maxBullets);;
     int i;
     for (i=0; i<maxBullets; i++) {
         Bullet *bullet = malloc(sizeof(*bullet));
         bullet->active = 0;
         bullets[i] = bullet;
     }
+    return bullets;
 }
 
 void fireBullets(Bullet **bullets, Spaceship *spaceship, int maxBullets){

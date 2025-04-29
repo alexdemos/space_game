@@ -14,7 +14,7 @@ typedef struct bullet
 } Bullet;
 
 void initBullet(Spaceship *spaceship, Bullet** bullets, int bullet_count);
-void initBullets(Bullet **bullets, int maxBullets);
+Bullet** initBullets(int maxBullets);
 void fireBullets(Bullet **bullets, Spaceship *spaceship, int maxBullets);
 void updateBullets(Bullet **bullets, int maxBullets);
 void updateBullet(Bullet *bullet);

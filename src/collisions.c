@@ -34,16 +34,14 @@ void handlePlayerCollison(Enemy *enemy, Spaceship *spaceship){
 void *markPlayerHitThread(void *threadArg){
     Spaceship *spaceship;;
     spaceship = (Spaceship*) threadArg;
-    int height = spaceship->rectangle.height;
-    int width = spaceship->rectangle.width;
+    Color original = spaceship->color;
     spaceship->isInvincible = 1;
     int i;
     for(i=0; i<3; i++){
-        spaceship->rectangle.height=0;
-        spaceship->rectangle.width=0;
-        msleep(100);
-        spaceship->rectangle.height=height;
-        spaceship->rectangle.width=width;
+        spaceship->color = BLANK;
+        drawSpaceship(spaceship);
+        msleep(200);
+        spaceship->color = original;
         drawSpaceship(spaceship);
         msleep(100);
     }

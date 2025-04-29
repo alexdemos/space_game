@@ -53,8 +53,7 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "Space Game");
 
-    Bullet **bullets = malloc(sizeof(*bullets) * world.maxBullets);
-    initBullets(bullets, world.maxBullets);
+    Bullet **bullets = initBullets(world.maxBullets);
     Spaceship spaceship = initSpaceship();
     EnemyWave enemyWave = initEnemyWave(4);
 
