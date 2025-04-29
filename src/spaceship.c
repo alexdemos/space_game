@@ -11,8 +11,11 @@ Spaceship initSpaceship(){
     spaceship.rectangle.height = 25;
     spaceship.speed = 5;
     spaceship.damage = 10;
-    spaceship.fire_rate = 10;
+    spaceship.fire_rate = 20;
+    spaceship.cooldown = spaceship.fire_rate;
+    spaceship.bullet_count = 0;
     spaceship.bullet_speed = 10;
+    spaceship.isInvincible = 0;
     spaceship.health = 3;
 
     return spaceship;
@@ -20,7 +23,7 @@ Spaceship initSpaceship(){
 
 void updateSpaceship(Spaceship *spaceship){
     updateSpaceshipPos(spaceship);
-    spaceship->fire_rate -= 1;
+    spaceship->cooldown -= 1;
 }
 
 void updateSpaceshipPos(Spaceship *spaceship){

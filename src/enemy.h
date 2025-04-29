@@ -5,6 +5,7 @@
 typedef struct enemy{
     int health;
     int speed;
+    int active;
     Color color;
     Rectangle rectangle;
 } Enemy;
@@ -14,5 +15,6 @@ void updateEnemies(Enemy **enemies, int enemyAmount);
 void updateEnemy(Enemy *enemy);
 void drawEnemies(Enemy **enemies, int amount);
 void drawEnemy(Enemy *enemy);
+void clearEnemy(Enemy *enemy);
 
 #endif

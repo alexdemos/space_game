@@ -9,8 +9,11 @@ typedef struct Spaceship
     int speed;
     int damage;
     int fire_rate;
+    int cooldown;
     int bullet_speed;
+    int bullet_count;
     int health;
+    int isInvincible;
 } Spaceship;
 
 Spaceship initSpaceship();

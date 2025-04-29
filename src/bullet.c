@@ -2,8 +2,8 @@
 #include "spaceship.h"
 #include <stdlib.h>
 
-void initBullet(Spaceship *spaceship, Bullet** bullets, int current){
-    Bullet *bullet = bullets[current];
+void initBullet(Spaceship *spaceship, Bullet** bullets, int bullet_count){
+    Bullet *bullet = bullets[bullet_count];
     bullet->rectangle.height = 5;
     bullet->rectangle.width = 10;
     bullet->rectangle.x = spaceship->rectangle.x + \
@@ -27,11 +27,11 @@ void initBullets(Bullet **bullets, int maxBullets){
     }
 }
 
-void fireBullets(Bullet **bullets, Spaceship *spaceship, int *current, int maxBullets){
-    if (IsKeyDown(KEY_SPACE) && spaceship->fire_rate <= 0){
-        initBullet(spaceship, bullets, *current);
-        *current = (*current + 1) % maxBullets;
-        spaceship->fire_rate = 10;
+void fireBullets(Bullet **bullets, Spaceship *spaceship, int maxBullets){
+    if (IsKeyDown(KEY_SPACE) && spaceship->cooldown <= 0){
+        initBullet(spaceship, bullets, spaceship->bullet_count);
+        spaceship->bullet_count = (spaceship->bullet_count + 1) % maxBullets;
+        spaceship->cooldown = spaceship->fire_rate;
     }
 }
 
@@ -64,8 +64,7 @@ void drawBullet(Bullet *bullet){
 }
 
 void clearBullet(Bullet *bullet){
-    bullet->active = 0;
-    bullet->rectangle.width = 0;
-    bullet->rectangle.height = 0;
-    bullet->damage = 0;
+    if (bullet->active == 1){
+        free(bullet);
+    }
 }

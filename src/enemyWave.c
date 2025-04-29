@@ -11,11 +11,11 @@ EnemyWave initEnemyWave(int enemyAmount){
     int i;
     for(i=0; i<enemyAmount; i++){
         Rectangle rectangle;
-        rectangle.x = 300;
-        rectangle.y = 100;
-        rectangle.height = 50;
-        rectangle.width = 100;
-        Enemy *enemy = initEnemy(10, 10, RED, rectangle);
+        rectangle.x = 1300;
+        rectangle.y = (200 * i) + 200;
+        rectangle.height = 20;
+        rectangle.width = 40;
+        Enemy *enemy = initEnemy(30, 1, PURPLE, rectangle);
         enemies[i] = enemy;
     }
     enemyWave.enemies = enemies;
