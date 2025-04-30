@@ -12,18 +12,13 @@ Enemy* initEnemy(int health, int speed, Color color, Rectangle rectangle){
     return enemy;
 }
 
-void updateEnemies(Enemy **enemies, int enemyAmount){
-    int i;
-    for (i=0; i<enemyAmount; i++){
-        updateEnemy(enemies[i]);
-    }
-}
-
-void updateEnemy(Enemy *enemy){
-    if(enemy->health <= 0){
+int updateEnemy(Enemy *enemy){
+    if(enemy->health <= 0 && enemy->active == 1){
         clearEnemy(enemy);
+        return 1;
     }
     enemy->rectangle.x -= enemy->speed;
+    return 0;
 }
 
 void drawEnemies(Enemy **enemies, int amount){
@@ -39,6 +34,10 @@ void drawEnemy(Enemy *enemy){
 
 void clearEnemy(Enemy *enemy){
     if(enemy->active == 1){
-        free(enemy);
+        enemy->active = 0;
+        enemy->rectangle.width = 0;
+        enemy->rectangle.height=0;
+        enemy->rectangle.x=-20000;
+        enemy->rectangle.y=-20000;
     }
 }

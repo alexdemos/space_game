@@ -66,7 +66,9 @@ void drawBullet(Bullet *bullet){
 }
 
 void clearBullet(Bullet *bullet){
-    if (bullet->active == 1){
-        free(bullet);
-    }
+    bullet->active = 0;
+    bullet->rectangle.width=0;
+    bullet->rectangle.height=0;
+    bullet->rectangle.x = -20000;
+    bullet->rectangle.y = -20000;
 }

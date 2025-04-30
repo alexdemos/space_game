@@ -75,8 +75,8 @@ void handleBulletCollision(Bullet *bullet, Enemy *enemy){
 }
 
 void enemyHit(Enemy *enemy, Bullet *bullet){
-    enemy->health -= bullet->damage;
     markEnemyHit(enemy);
+    enemy->health -= bullet->damage;
 }
 
 void *markHitThread(void *threadArg){

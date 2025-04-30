@@ -5,6 +5,7 @@
 typedef struct EnemyWave{
     Enemy **enemies;
     int enemyAmount;
+    int currentEnemyAmount;
     int active;
 } EnemyWave;
 

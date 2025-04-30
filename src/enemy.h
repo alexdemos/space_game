@@ -11,8 +11,8 @@ typedef struct enemy{
 } Enemy;
 
 Enemy* initEnemy(int health, int speed, Color color, Rectangle rectangle);
-void updateEnemies(Enemy **enemies, int enemyAmount);
-void updateEnemy(Enemy *enemy);
+//return 1 if enemy died
+int updateEnemy(Enemy *enemy);
 void drawEnemies(Enemy **enemies, int amount);
 void drawEnemy(Enemy *enemy);
 void clearEnemy(Enemy *enemy);

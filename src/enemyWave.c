@@ -7,6 +7,7 @@ EnemyWave initEnemyWave(int enemyAmount){
     EnemyWave enemyWave;
     enemyWave.active = 1;
     enemyWave.enemyAmount = enemyAmount;
+    enemyWave.currentEnemyAmount = enemyAmount;
     Enemy **enemies = malloc(sizeof(*enemies) * enemyAmount);
     int i;
     for(i=0; i<enemyAmount; i++){
@@ -27,10 +28,19 @@ void drawEnemyWave(EnemyWave *enemyWave){
 }
 
 void updateEnemyWave(EnemyWave *enemyWave){
-    updateEnemies(enemyWave->enemies, enemyWave->enemyAmount);
+    int i;
+    for (i=0; i<enemyWave->enemyAmount; i++){
+        Enemy *enemy = enemyWave->enemies[i];
+        enemyWave->currentEnemyAmount -= updateEnemy(enemy); 
+    }
+    if(enemyWave->currentEnemyAmount == 0){
+        freeEnemyWave(enemyWave);
+        *enemyWave = initEnemyWave(3);
+    }
 }
 
 void freeEnemyWave(EnemyWave *enemyWave){
     free(enemyWave->enemies);
     enemyWave->active = 0;
+    enemyWave->enemyAmount = 0;
 }
