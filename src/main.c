@@ -29,7 +29,6 @@ Future Plans:
 TODOs:
 Enemies
 -movement/patterns
--creating waves
 -diff enemy types
 -random waves
 UI
@@ -55,7 +54,7 @@ int main(void)
 
     Bullet **bullets = initBullets(world.maxBullets);
     Spaceship spaceship = initSpaceship();
-    EnemyWave enemyWave = initEnemyWave(1);
+    EnemyWave enemyWave = createNewWave(1);
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------

@@ -18,7 +18,8 @@ void drawHealthBar(Spaceship *spaceship){
 }
 
 void drawEnemiesRemaining(EnemyWave *enemyWave){
-    char enemyAmountString[3];
-    sprintf(enemyAmountString, "%d", enemyWave->currentEnemyAmount);
-    DrawText(enemyAmountString, GetScreenWidth()-110, UI_Y_POS, 20, WHITE);
+    char enemyAmountString[50];
+    sprintf(enemyAmountString, "Current Wave: %d  Enemy Count: %d", \
+            enemyWave->wave, enemyWave->currentEnemyAmount);
+    DrawText(enemyAmountString, (GetScreenWidth()/2)-150, UI_Y_POS, 20, WHITE);
 }

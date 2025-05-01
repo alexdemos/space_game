@@ -6,12 +6,13 @@ typedef struct EnemyWave{
     Enemy **enemies;
     int enemyAmount;
     int currentEnemyAmount;
-    int active;
+    int wave;
 } EnemyWave;
 
-EnemyWave initEnemyWave(int enemyAmount);
 void updateEnemyWave(EnemyWave *enemyWave);
 void drawEnemyWave(EnemyWave *enemyWave);
 void freeEnemyWave(EnemyWave *enemyWave);
+EnemyWave createNewWave(int wave);
+EnemyWave createEnemnyWaveOne(int wave);
 
 #endif

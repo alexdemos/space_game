@@ -75,8 +75,10 @@ void handleBulletCollision(Bullet *bullet, Enemy *enemy){
 }
 
 void enemyHit(Enemy *enemy, Bullet *bullet){
-    markEnemyHit(enemy);
     enemy->health -= bullet->damage;
+    if(enemy->health > 0){
+        markEnemyHit(enemy);
+    }
 }
 
 void *markHitThread(void *threadArg){
