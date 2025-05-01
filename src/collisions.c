@@ -25,7 +25,6 @@ void checkPlayerCollisions(EnemyWave *enemyWave, Spaceship *spaceship){
 
 void handlePlayerCollison(Enemy *enemy, Spaceship *spaceship){
     if(spaceship->isInvincible == 0){
-        enemy->speed *= -1;
         spaceship->health -= 1;
         markPlayerHit(spaceship);
     }

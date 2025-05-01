@@ -4,7 +4,7 @@
 
 Spaceship initSpaceship(){
     Spaceship spaceship;
-    spaceship.color = BLUE;
+    spaceship.color = GRAY;
     spaceship.rectangle.x = 200;
     spaceship.rectangle.y = GetScreenHeight() / 2;
     spaceship.rectangle.width = 50;
@@ -31,11 +31,9 @@ void updateSpaceshipPos(Spaceship *spaceship){
         spaceship->rectangle.x += spaceship->speed;
     }
     if(IsKeyDown(KEY_LEFT) && spaceship->rectangle.x > 0) { 
-        int t = GetScreenWidth();
         spaceship->rectangle.x -= spaceship->speed;
     }
     if(IsKeyDown(KEY_UP) && spaceship->rectangle.y > 0 ) {
-        int t = GetScreenHeight();
         spaceship->rectangle.y -= spaceship->speed;
     }
     if(IsKeyDown(KEY_DOWN) && spaceship->rectangle.y < GetScreenHeight() - spaceship->rectangle.height) {
