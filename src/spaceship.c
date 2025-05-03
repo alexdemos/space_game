@@ -16,7 +16,7 @@ Spaceship initSpaceship(){
     spaceship.bullet_count = 0;
     spaceship.bullet_speed = 10;
     spaceship.isInvincible = 0;
-    spaceship.health = 3;
+    spaceship.health = 0;
 
     return spaceship;
 }

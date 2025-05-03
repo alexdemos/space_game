@@ -27,7 +27,7 @@ Future Plans:
 - stars in background
 
 TODOs:
-Main Menu
+Read from file so status can be saved
 Upgrdae Menu
 Handle Player Death (take them to upgrade menu)
 Finish making the 10 waves
@@ -81,7 +81,7 @@ int main(void)
                 EndDrawing();
         //player has 0 health
         } else {
-            drawDeath();
+            drawUpgradeMenu(&spaceship, &world);
         }
         //----------------------------------------------------------------------------------
     }
