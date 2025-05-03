@@ -7,6 +7,24 @@
 const int UI_Y_POS = 50;
 const int FONT_SIZE = 20;
 
+void drawStartMenu(World *world){
+    BeginDrawing();
+    ClearBackground(BLACK);
+    DrawText("Space Game", (GetScreenWidth()/2)-135, GetScreenHeight()/3, 50, WHITE);
+    DrawText("Press Space to Start", (GetScreenWidth()/2)-150, (GetScreenHeight()/3)+200, 30, WHITE);
+    if(IsKeyDown(KEY_SPACE)){
+        world->start = 1;
+    }
+    EndDrawing();
+}
+
+void drawDeath(){
+    BeginDrawing();
+    ClearBackground(BLACK);
+    DrawText("Dead", (GetScreenWidth()/2)-54, GetScreenHeight()/3, 50, WHITE);        
+    EndDrawing();
+}
+
 void drawUI(Spaceship *spaceship, EnemyWave *enemyWave, World *world){
     drawHealthBar(spaceship);
     drawEnemiesRemaining(enemyWave);

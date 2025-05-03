@@ -2,6 +2,7 @@
 #define WORLD_H
 
 typedef struct World{
+    int start;
     int maxBullets;
     int points;
 } World;

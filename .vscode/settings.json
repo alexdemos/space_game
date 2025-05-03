@@ -12,6 +12,7 @@
 		"stdio.h": "c",
 		"raylib.h": "c",
 		"complex": "c",
-		"stdbool.h": "c"
+		"stdbool.h": "c",
+		"enemywave.h": "c"
 	}
 }

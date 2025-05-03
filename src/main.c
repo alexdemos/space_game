@@ -9,7 +9,7 @@
 #include <stdlib.h>
 /*
 Game Design
-- 10 random waves
+- 10 pre determined waves
 - clear one wave before next one starts
 - have to kill all enemies in a given wave
 - 10th wave is always boss
@@ -27,15 +27,10 @@ Future Plans:
 - stars in background
 
 TODOs:
-Enemies
--movement/patterns
--diff enemy types
--random waves
-UI
--points/exp/level/enemies left?
-Point System
-RogueLite upgrades
-Menu
+Main Menu
+Upgrdae Menu
+Handle Player Death (take them to upgrade menu)
+Finish making the 10 waves
 */
 
 //------------------------------------------------------------------------------------
@@ -47,8 +42,9 @@ int main(void)
     //--------------------------------------------------------------------------------------
     const int screenWidth = 1300;
     const int screenHeight = 800;
+    int max_bullets =  100;
 
-    World world = initWorld(100);
+    World world = initWorld(max_bullets);
 
     InitWindow(screenWidth, screenHeight, "Space Game");
 
@@ -62,24 +58,31 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
+        if (world.start == 0){
+            drawStartMenu(&world);
+        } else if (spaceship.health > 0) {
         // Update
-       updateSpaceship(&spaceship);
-       updateBullets(bullets, world.maxBullets);
-       updateEnemyWave(&enemyWave, &world);
-       fireBullets(bullets, &spaceship, world.maxBullets);
-       checkCollisions(&enemyWave, &spaceship, bullets, &world);
+            updateSpaceship(&spaceship);
+            updateBullets(bullets, world.maxBullets);
+            updateEnemyWave(&enemyWave, &world);
+            fireBullets(bullets, &spaceship, world.maxBullets);
+            checkCollisions(&enemyWave, &spaceship, bullets, &world);
 
-        // Draw
-        //----------------------------------------------------------------------------------
-        BeginDrawing();
+                // Draw
+                //----------------------------------------------------------------------------------
+                BeginDrawing();
 
-            ClearBackground(BLACK);
-            drawBullets(bullets, world.maxBullets);
-            drawSpaceship(&spaceship);
-            drawEnemyWave(&enemyWave);
-            drawUI(&spaceship, &enemyWave, &world);
+                    ClearBackground(BLACK);
+                    drawBullets(bullets, world.maxBullets);
+                    drawSpaceship(&spaceship);
+                    drawEnemyWave(&enemyWave);
+                    drawUI(&spaceship, &enemyWave, &world);
 
-        EndDrawing();
+                EndDrawing();
+        //player has 0 health
+        } else {
+            drawDeath();
+        }
         //----------------------------------------------------------------------------------
     }
 
