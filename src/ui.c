@@ -1,13 +1,16 @@
 #include "ui.h"
 #include "spaceship.h"
 #include "enemyWave.h"
+#include "world.h"
 #include <stdio.h>
 
 const int UI_Y_POS = 50;
+const int FONT_SIZE = 20;
 
-void drawUI(Spaceship *spaceship, EnemyWave *enemyWave){
+void drawUI(Spaceship *spaceship, EnemyWave *enemyWave, World *world){
     drawHealthBar(spaceship);
     drawEnemiesRemaining(enemyWave);
+    drawPoints(world);
 }
 
 void drawHealthBar(Spaceship *spaceship){
@@ -22,4 +25,10 @@ void drawEnemiesRemaining(EnemyWave *enemyWave){
     sprintf(enemyAmountString, "Current Wave: %d  Enemy Count: %d", \
             enemyWave->wave, enemyWave->currentEnemyAmount);
     DrawText(enemyAmountString, (GetScreenWidth()/2)-150, UI_Y_POS, 20, WHITE);
+}
+
+void drawPoints(World *world){
+    char pointsString[20];
+    sprintf(pointsString, "Points: %d", world->points);
+    DrawText(pointsString, GetScreenWidth() - 300, UI_Y_POS, FONT_SIZE, WHITE);
 }

@@ -1,5 +1,6 @@
 #include "enemyWave.h"
 #include "enemy.h"
+#include "world.h"
 #include "raylib.h"
 #include <stdlib.h>
 
@@ -7,11 +8,11 @@ void drawEnemyWave(EnemyWave *enemyWave){
     drawEnemies(enemyWave->enemies, enemyWave->enemyAmount);
 }
 
-void updateEnemyWave(EnemyWave *enemyWave){
+void updateEnemyWave(EnemyWave *enemyWave, World *world){
     int i;
     for (i=0; i<enemyWave->enemyAmount; i++){
         Enemy *enemy = enemyWave->enemies[i];
-        enemyWave->currentEnemyAmount -= updateEnemy(enemy); 
+        enemyWave->currentEnemyAmount -= updateEnemy(enemy, world); 
     }
     if(enemyWave->currentEnemyAmount == 0){
         freeEnemyWave(enemyWave);
@@ -64,14 +65,23 @@ EnemyWave createEnemyWaveOne(int wave){
 EnemyWave createEnemyWaveTwo(int wave){
     EnemyWave enemyWave;
     enemyWave.wave = wave;
-    enemyWave.enemyAmount = 2;
+    int basicEnemies = 3;
+    int beefEnemies = 2;
+    enemyWave.enemyAmount = basicEnemies + beefEnemies;
     enemyWave.currentEnemyAmount = enemyWave.enemyAmount;
     Enemy **enemies = malloc(sizeof(*enemies) * enemyWave.enemyAmount);
+    //basic enemies
     int i;
-    for(i=0; i<enemyWave.enemyAmount; i++){
+    for(i=0; i<basicEnemies; i++){
+        Enemy *enemy = createBasicEnemy();
+        enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width;
+        enemy->rectangle.y = (i+1) * (GetScreenHeight()/(basicEnemies+1));
+        enemies[i] = enemy;
+    }
+    for(i=basicEnemies; i<enemyWave.enemyAmount; i++){
         Enemy *enemy = createBeefEnemy();
         enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width;
-        enemy->rectangle.y = (200 * i) + 200;
+        enemy->rectangle.y = (i-basicEnemies+1) * (GetScreenHeight()/(beefEnemies+1));
         enemies[i] = enemy;
     }
     enemyWave.enemies = enemies;
@@ -81,14 +91,15 @@ EnemyWave createEnemyWaveTwo(int wave){
 EnemyWave createEnemyWaveThree(int wave){
     EnemyWave enemyWave;
     enemyWave.wave = wave;
-    enemyWave.enemyAmount = 3;
+    enemyWave.enemyAmount = 6;
     enemyWave.currentEnemyAmount = enemyWave.enemyAmount;
     Enemy **enemies = malloc(sizeof(*enemies) * enemyWave.enemyAmount);
     int i;
     for(i=0; i<enemyWave.enemyAmount; i++){
         Enemy *enemy = createFastEnemy();
-        enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width;
-        enemy->rectangle.y = (200 * i) + 200;
+        enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width + (200*i);
+        enemy->rectangle.y = 200;
+        enemy->pattern=SIN_PATTERN;
         enemies[i] = enemy;
     }
     enemyWave.enemies = enemies;

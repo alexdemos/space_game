@@ -1,6 +1,7 @@
 #ifndef ENEMYWAVE_H
 #define ENEMYWAVE_H
 #include "enemy.h"
+#include "world.h"
 
 typedef struct EnemyWave{
     Enemy **enemies;
@@ -9,7 +10,7 @@ typedef struct EnemyWave{
     int wave;
 } EnemyWave;
 
-void updateEnemyWave(EnemyWave *enemyWave);
+void updateEnemyWave(EnemyWave *enemyWave, World *world);
 void drawEnemyWave(EnemyWave *enemyWave);
 void freeEnemyWave(EnemyWave *enemyWave);
 

@@ -3,6 +3,7 @@
 
 typedef struct World{
     int maxBullets;
+    int points;
 } World;
 
 World initWorld(int maxBullets);

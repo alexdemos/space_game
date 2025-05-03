@@ -1,0 +1,6 @@
+speed = 5
+damage = 10
+fire_rate = 5
+bullet_speed = 10
+health = 3
+points = 0

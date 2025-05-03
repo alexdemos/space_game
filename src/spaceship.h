@@ -14,6 +14,7 @@ typedef struct Spaceship
     int bullet_count;
     int health;
     int isInvincible;
+    int points;
 } Spaceship;
 
 Spaceship initSpaceship();

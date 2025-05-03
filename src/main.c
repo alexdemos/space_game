@@ -65,7 +65,7 @@ int main(void)
         // Update
        updateSpaceship(&spaceship);
        updateBullets(bullets, world.maxBullets);
-       updateEnemyWave(&enemyWave);
+       updateEnemyWave(&enemyWave, &world);
        fireBullets(bullets, &spaceship, world.maxBullets);
        checkCollisions(&enemyWave, &spaceship, bullets, &world);
 
@@ -77,7 +77,7 @@ int main(void)
             drawBullets(bullets, world.maxBullets);
             drawSpaceship(&spaceship);
             drawEnemyWave(&enemyWave);
-            drawUI(&spaceship, &enemyWave);
+            drawUI(&spaceship, &enemyWave, &world);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
