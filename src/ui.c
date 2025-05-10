@@ -10,7 +10,7 @@ const int HEADER_SIZE = 50;
 const int SUB_HEADER_SIZE = 30;
 const int UI_FONT_SIZE = 20;
 const int UPGRADE_Y = 250;
-const int UPGRADE_X = 100;
+const int UPGRADE_X = 50;
 
 void drawStartMenu(World *world){
     BeginDrawing();
@@ -34,28 +34,50 @@ void drawUpgradeMenu(Spaceship *spaceship, World *world){
     char *death = "You Died";
     char *upgrade = "Buy Some Upgrades";
     int width = MeasureText(death, HEADER_SIZE);
-    DrawText("You Died", (GetScreenWidth()/2)-(width/2), UI_Y_POS, HEADER_SIZE, WHITE);  
+    DrawText(death, (GetScreenWidth()/2)-(width/2), UI_Y_POS, HEADER_SIZE, WHITE);  
     width = MeasureText(upgrade, SUB_HEADER_SIZE); 
-    DrawText("Buy Some Upgrades", (GetScreenWidth()/2)-(width/2), UI_Y_POS+100, SUB_HEADER_SIZE, WHITE); 
+    DrawText(upgrade, (GetScreenWidth()/2)-(width/2), UI_Y_POS+100, SUB_HEADER_SIZE, WHITE); 
     drawPoints(world);
-    char *damage = "Damage (1)";
-    DrawText(damage, UPGRADE_X, UPGRADE_Y, SUB_HEADER_SIZE, WHITE); 
-    int i;
-    for (i=0; i<spaceship->damage/10; i++){
-        DrawCircle(UPGRADE_X + (200 * (i+1)), UPGRADE_Y+20, 10, RED);
-    }
-    for (i=spaceship->damage/10; i<5; i++){
-        DrawCircle(UPGRADE_X + (200 * (i+1)), UPGRADE_Y+20, 10, WHITE);
-    }
+
+    drawUpgrade("(1)Damage", spaceship->damage, BASE_DAMAGE, DAMAGE_INC, 0);
+    drawUpgrade("(2)Speed", spaceship->speed, BASE_SPEED, SPEED_INC, 1);
+    drawUpgrade("(3)Fire Rate", spaceship->fire_rate, BASE_FIRE_RATE, FIRE_RATE_INC, 2);
+    drawUpgrade("(4)Bullet Speed", spaceship->bullet_speed, BASE_BULLET_SPEED, BULLET_SPEED_INC, 3);
+ 
+    handleUpgrades(spaceship, world);
+    EndDrawing();
+}
+
+void handleUpgrades(Spaceship *spaceship, World *world){
     if (IsKeyDown(KEY_ONE)){
-        spaceship->damage += 10;
+        int cost = (((spaceship->damage - BASE_DAMAGE)/DAMAGE_INC) + 1) * COST_INC;
+        if (world->points >= cost){
+            spaceship->damage += DAMAGE_INC;
+            world->points -= cost;
+            msleep(500);
+        }
+    }
+    if (IsKeyDown(KEY_TWO)){
+        spaceship->speed += SPEED_INC;
         msleep(500);
     }
-     if (IsKeyDown(KEY_G)){
-        spaceship->health = 3;
-        return;
-     }
-    EndDrawing();
+}
+
+void drawUpgrade(char *text, int current, int base, int inc, int pos){
+    int y = UPGRADE_Y + (50 * pos);
+    int cost = (((current - base)/inc) + 1) * COST_INC;
+    char costString[10];
+    sprintf(costString, "- %dpts", cost);
+    DrawText(text, UPGRADE_X, y, SUB_HEADER_SIZE, WHITE); 
+    int width = MeasureText(text, SUB_HEADER_SIZE); 
+    DrawText(costString, UPGRADE_X + width + 10, y, SUB_HEADER_SIZE, WHITE);
+    int i;
+    for (i=0; i<(current-base)/inc; i++){
+        DrawCircle(UPGRADE_X+100 + (200 * (i+1)), y+20, 10, RED);
+    }
+    for (i=((current-base)/inc); i<5; i++){
+        DrawCircle(UPGRADE_X+100 + (200 * (i+1)), y+20, 10, WHITE);
+    }
 }
 
 void drawUI(Spaceship *spaceship, EnemyWave *enemyWave, World *world){

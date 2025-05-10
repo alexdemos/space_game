@@ -2,6 +2,21 @@
 #define SPACESHIP_H
 #include "raylib.h"
 
+static const int BASE_HEALTH = 0;
+static const int HEALTH_INC = 1;
+static const int BASE_DAMAGE = 10;
+static const int DAMAGE_INC = 10;
+static const int BASE_SPEED = 5;
+static const int SPEED_INC = 3;
+static const int BASE_FIRE_RATE = 20;
+static const int FIRE_RATE_INC = -2;
+static const int BASE_BULLET_SPEED = 10;
+static const int BULLET_SPEED_INC = 5;
+
+static const int BASE_COST = 50;
+static const int COST_INC = 50;
+
+
 typedef struct Spaceship
 {
     Rectangle rectangle;

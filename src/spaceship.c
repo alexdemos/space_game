@@ -9,14 +9,14 @@ Spaceship initSpaceship(){
     spaceship.rectangle.y = GetScreenHeight() / 2;
     spaceship.rectangle.width = 50;
     spaceship.rectangle.height = 25;
-    spaceship.speed = 5;
-    spaceship.damage = 10;
-    spaceship.fire_rate = 20;
+    spaceship.speed = BASE_SPEED;
+    spaceship.damage = BASE_DAMAGE;
+    spaceship.fire_rate = BASE_FIRE_RATE;
     spaceship.cooldown = spaceship.fire_rate;
     spaceship.bullet_count = 0;
-    spaceship.bullet_speed = 10;
+    spaceship.bullet_speed = BASE_BULLET_SPEED;
     spaceship.isInvincible = 0;
-    spaceship.health = 0;
+    spaceship.health = BASE_HEALTH;
 
     return spaceship;
 }
