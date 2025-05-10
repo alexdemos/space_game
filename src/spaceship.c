@@ -44,3 +44,34 @@ void updateSpaceshipPos(Spaceship *spaceship){
 void drawSpaceship(Spaceship *spaceship){
     DrawRectangleRec(spaceship->rectangle, spaceship->color);
 }
+
+int calculateNumberOfUpgrades(Spaceship *spaceship, int property_index){
+    int current;
+    int base;
+    int inc;
+    switch(property_index){
+        case DAMAGE_POS:
+            current = spaceship->damage;
+            base = BASE_DAMAGE;
+            inc = DAMAGE_INC;
+            break;
+        case SPEED_POS:
+            current = spaceship->speed;
+            base = BASE_SPEED;
+            inc = SPEED_INC;
+            break;
+        case FIRE_RATE_POS:
+            current = spaceship->fire_rate;
+            base = BASE_FIRE_RATE;
+            inc = FIRE_RATE_INC;
+            break;
+        case BULLET_SPEED_POS:
+            current = spaceship->bullet_speed;
+            base = BASE_BULLET_SPEED;
+            inc = BULLET_SPEED_INC;
+            break;
+        default:
+            return 0;
+    }
+    return (current - base)/inc;
+}

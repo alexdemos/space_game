@@ -11,6 +11,7 @@ const int SUB_HEADER_SIZE = 30;
 const int UI_FONT_SIZE = 20;
 const int UPGRADE_Y = 250;
 const int UPGRADE_X = 50;
+const int MAX_UPGRADES = 5;
 
 void drawStartMenu(World *world){
     BeginDrawing();
@@ -39,44 +40,72 @@ void drawUpgradeMenu(Spaceship *spaceship, World *world){
     DrawText(upgrade, (GetScreenWidth()/2)-(width/2), UI_Y_POS+100, SUB_HEADER_SIZE, WHITE); 
     drawPoints(world);
 
-    drawUpgrade("(1)Damage", spaceship->damage, BASE_DAMAGE, DAMAGE_INC, 0);
-    drawUpgrade("(2)Speed", spaceship->speed, BASE_SPEED, SPEED_INC, 1);
-    drawUpgrade("(3)Fire Rate", spaceship->fire_rate, BASE_FIRE_RATE, FIRE_RATE_INC, 2);
-    drawUpgrade("(4)Bullet Speed", spaceship->bullet_speed, BASE_BULLET_SPEED, BULLET_SPEED_INC, 3);
+    drawUpgrade("(1)Damage", spaceship, DAMAGE_POS, world);
+    drawUpgrade("(2)Speed", spaceship, SPEED_POS, world);
+    drawUpgrade("(3)Fire Rate", spaceship, FIRE_RATE_POS, world);
+    drawUpgrade("(4)Bullet Speed", spaceship, BULLET_SPEED_POS, world);
  
     handleUpgrades(spaceship, world);
+    if (IsKeyDown(KEY_G)){
+        spaceship->health = 8;
+    }
     EndDrawing();
 }
 
 void handleUpgrades(Spaceship *spaceship, World *world){
     if (IsKeyDown(KEY_ONE)){
-        int cost = (((spaceship->damage - BASE_DAMAGE)/DAMAGE_INC) + 1) * COST_INC;
-        if (world->points >= cost){
+        int numOfUpgrades = calculateNumberOfUpgrades(spaceship, DAMAGE_POS);
+        int cost = (numOfUpgrades + 1) * COST_INC;
+        if (world->points >= cost && numOfUpgrades < MAX_UPGRADES){
             spaceship->damage += DAMAGE_INC;
             world->points -= cost;
             msleep(500);
         }
     }
     if (IsKeyDown(KEY_TWO)){
-        spaceship->speed += SPEED_INC;
-        msleep(500);
+        int numOfUpgrades = calculateNumberOfUpgrades(spaceship, SPEED_POS);
+        int cost = (numOfUpgrades + 1) * COST_INC;
+        if (world->points >= cost && numOfUpgrades < MAX_UPGRADES){
+            spaceship->speed += SPEED_INC;
+            world->points -= cost;
+            msleep(500);
+        }
+    }
+    if (IsKeyDown(KEY_THREE)){
+        int numOfUpgrades = calculateNumberOfUpgrades(spaceship, FIRE_RATE_POS);
+        int cost = (numOfUpgrades + 1) * COST_INC;
+        if (world->points >= cost && numOfUpgrades < MAX_UPGRADES){
+            spaceship->fire_rate += FIRE_RATE_INC;
+            world->points -= cost;
+            msleep(500);
+        }
+    }
+    if (IsKeyDown(KEY_FOUR)){
+        int numOfUpgrades = calculateNumberOfUpgrades(spaceship, BULLET_SPEED_POS);
+        int cost = (numOfUpgrades + 1) * COST_INC;
+        if (world->points >= cost && numOfUpgrades < MAX_UPGRADES){
+            spaceship->bullet_speed += BULLET_SPEED_INC;
+            world->points -= cost;
+            msleep(500);
+        }
     }
 }
 
-void drawUpgrade(char *text, int current, int base, int inc, int pos){
-    int y = UPGRADE_Y + (50 * pos);
-    int cost = (((current - base)/inc) + 1) * COST_INC;
-    char costString[10];
-    sprintf(costString, "- %dpts", cost);
-    DrawText(text, UPGRADE_X, y, SUB_HEADER_SIZE, WHITE); 
-    int width = MeasureText(text, SUB_HEADER_SIZE); 
-    DrawText(costString, UPGRADE_X + width + 10, y, SUB_HEADER_SIZE, WHITE);
-    int i;
-    for (i=0; i<(current-base)/inc; i++){
-        DrawCircle(UPGRADE_X+100 + (200 * (i+1)), y+20, 10, RED);
+void drawUpgrade(char *text, Spaceship *spaceship, int pos, World *world){
+    int numberOfUpgrades = calculateNumberOfUpgrades(spaceship, pos);
+    int y_pos = UPGRADE_Y + (80 * pos);
+    DrawText(text, UPGRADE_X, y_pos, SUB_HEADER_SIZE, WHITE); 
+    if (numberOfUpgrades < MAX_UPGRADES){
+        int cost = (numberOfUpgrades + 1) * COST_INC;
+        drawCost(cost, y_pos, world);
     }
-    for (i=((current-base)/inc); i<5; i++){
-        DrawCircle(UPGRADE_X+100 + (200 * (i+1)), y+20, 10, WHITE);
+    //draw circles
+    int i;
+    for (i=0; i<numberOfUpgrades; i++){
+        DrawCircle(UPGRADE_X+100 + (200 * (i+1)), y_pos+20, 10, RED);
+    }
+    for (i=(numberOfUpgrades); i<MAX_UPGRADES; i++){
+        DrawCircle(UPGRADE_X+100 + (200 * (i+1)), y_pos+20, 10, WHITE);
     }
 }
 
@@ -104,4 +133,19 @@ void drawPoints(World *world){
     char pointsString[20];
     sprintf(pointsString, "Points: %d", world->points);
     DrawText(pointsString, GetScreenWidth() - 300, UI_Y_POS, UI_FONT_SIZE, WHITE);
+}
+
+void drawCost(int cost, int y_pos, World *world){
+    Color cost_color = getCostColor(world, cost);
+    char costString[10];
+    sprintf(costString, "%dpts", cost);
+    DrawText(costString, UPGRADE_X, y_pos + 30, SUB_HEADER_SIZE, cost_color);
+}
+
+Color getCostColor(World *world, int cost){
+    Color cost_color = RED;
+    if (world->points >= cost){
+        cost_color = GREEN;
+    }
+    return cost_color;
 }
