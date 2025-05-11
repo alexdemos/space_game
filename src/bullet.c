@@ -14,7 +14,7 @@ void initBullet(Spaceship *spaceship, Bullet** bullets, int bullet_count){
                         (bullet->rectangle.height / 2);
     bullet->damage = spaceship->damage;
     bullet->speed = spaceship->bullet_speed;
-    bullet->range = 300;
+    bullet->range = spaceship->range;
     bullet->active = 1;
 }
 

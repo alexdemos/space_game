@@ -9,6 +9,7 @@ static int const SIN_PATTERN = 1;
 typedef struct enemy{
     int health;
     int speed;
+    int y_speed;
     int pattern;
     int active;
     int init;

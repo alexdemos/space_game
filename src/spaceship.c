@@ -17,6 +17,8 @@ Spaceship initSpaceship(){
     spaceship.bullet_speed = BASE_BULLET_SPEED;
     spaceship.isInvincible = 0;
     spaceship.health = BASE_HEALTH;
+    spaceship.total_health = BASE_HEALTH;
+    spaceship.range = 300;
 
     return spaceship;
 }
@@ -70,8 +72,24 @@ int calculateNumberOfUpgrades(Spaceship *spaceship, int property_index){
             base = BASE_BULLET_SPEED;
             inc = BULLET_SPEED_INC;
             break;
+        case HEALTH_POS:
+            current = spaceship->total_health;
+            base = BASE_HEALTH;
+            inc = HEALTH_INC;
+            break;
+        case RANGE_POS:
+            current = spaceship->range;
+            base = BASE_RANGE;
+            inc = RANGE_INC;
+            break;
         default:
             return 0;
     }
     return (current - base)/inc;
+}
+
+void resetAfterDeath(Spaceship *spaceship){
+    spaceship->health = spaceship->total_health;
+    spaceship->rectangle.x = START_X;
+    spaceship->rectangle.y = GetScreenHeight()/2;
 }

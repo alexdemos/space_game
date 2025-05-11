@@ -11,6 +11,7 @@ int updateEnemy(Enemy *enemy, World *world){
         return 1;
     }
     enemy->rectangle.x -= enemy->speed;
+    enemy->rectangle.y += enemy->y_speed;
     updateY(enemy);
     if (enemy->rectangle.x > 0 && enemy->rectangle.x < GetScreenWidth() - enemy->rectangle.width){
         enemy->init = 1;
@@ -18,6 +19,10 @@ int updateEnemy(Enemy *enemy, World *world){
     if((enemy->rectangle.x < 0 || enemy->rectangle.x > GetScreenWidth() - enemy->rectangle.width) \
        && enemy->init == 1){
         enemy->speed *= -1;
+    }
+    if((enemy->rectangle.y < 0 || enemy->rectangle.y > GetScreenHeight() - enemy->rectangle.height) \
+       && enemy->init == 1){
+        enemy->y_speed *= -1;
     }
     return 0;
 }
@@ -51,16 +56,16 @@ void clearEnemy(Enemy *enemy){
     }
 }
 
-
 Enemy* createBasicEnemy(){
     Enemy *enemy = malloc(sizeof(*enemy));
     Rectangle rectangle;
-    rectangle.height = 20;
-    rectangle.width = 40;
+    rectangle.height = 30;
+    rectangle.width = 45;
     enemy->rectangle = rectangle;
     enemy->health = 30;
     enemy->points = 10;
-    enemy->speed = 2;
+    enemy->speed = 10;
+    enemy->y_speed = 0;
     enemy->color = PURPLE;
     enemy->active = 1;
     enemy->init = 0;
@@ -76,7 +81,8 @@ Enemy* createBeefEnemy(){
     enemy->rectangle = rectangle;
     enemy->health = 60;
     enemy->points=20;
-    enemy->speed = 1;
+    enemy->speed = 8;
+    enemy->y_speed = 0;
     enemy->color = ORANGE;
     enemy->active = 1;
     enemy->init = 0;
@@ -87,12 +93,13 @@ Enemy* createBeefEnemy(){
 Enemy* createFastEnemy(){
     Enemy *enemy = malloc(sizeof(*enemy));
     Rectangle rectangle;
-    rectangle.height = 20;
-    rectangle.width = 40;
+    rectangle.height = 30;
+    rectangle.width = 45;
     enemy->rectangle = rectangle;
     enemy->health = 20;
     enemy->points=20;
     enemy->speed = 5;
+    enemy->y_speed = 0;
     enemy->color = BLUE;
     enemy->active = 1;
     enemy->init = 0;

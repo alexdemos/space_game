@@ -28,6 +28,12 @@ void freeEnemyWave(EnemyWave *enemyWave){
     free(enemyWave->enemies);
 }
 
+void resetWaves(EnemyWave *enemyWave){
+    freeEnemyWave(enemyWave);
+    enemyWave->wave = 1;
+    *enemyWave = createNewWave(1);
+}
+
 EnemyWave createNewWave(int wave){
     switch(wave){
         case 1:
@@ -76,6 +82,7 @@ EnemyWave createEnemyWaveTwo(int wave){
         Enemy *enemy = createBasicEnemy();
         enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width;
         enemy->rectangle.y = (i+1) * (GetScreenHeight()/(basicEnemies+1));
+        enemy->y_speed = 5;
         enemies[i] = enemy;
     }
     for(i=basicEnemies; i<enemyWave.enemyAmount; i++){

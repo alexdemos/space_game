@@ -6,7 +6,7 @@
 #include "raylib.h"
 
 void drawStartMenu(World *world);
-void drawUpgradeMenu(Spaceship *spaceship, World *world);
+void drawUpgradeMenu(Spaceship *spaceship, World *world, EnemyWave *enemyWave);
 void drawUpgrade(char *text, Spaceship *spaceship, int pos, World *world);
 void handleUpgrades(Spaceship *spaceship, World *world);
 void drawUI(Spaceship *spaceship, EnemyWave *enemyWave, World *world);

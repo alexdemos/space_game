@@ -29,11 +29,11 @@ void drawStartMenu(World *world){
     EndDrawing();
 }
 
-void drawUpgradeMenu(Spaceship *spaceship, World *world){
+void drawUpgradeMenu(Spaceship *spaceship, World *world, EnemyWave *enemyWave){
     BeginDrawing();
     ClearBackground(BLACK);
     char *death = "You Died";
-    char *upgrade = "Buy Some Upgrades";
+    char *upgrade = "Buy Some Upgrades - G to Continue";
     int width = MeasureText(death, HEADER_SIZE);
     DrawText(death, (GetScreenWidth()/2)-(width/2), UI_Y_POS, HEADER_SIZE, WHITE);  
     width = MeasureText(upgrade, SUB_HEADER_SIZE); 
@@ -44,11 +44,10 @@ void drawUpgradeMenu(Spaceship *spaceship, World *world){
     drawUpgrade("(2)Speed", spaceship, SPEED_POS, world);
     drawUpgrade("(3)Fire Rate", spaceship, FIRE_RATE_POS, world);
     drawUpgrade("(4)Bullet Speed", spaceship, BULLET_SPEED_POS, world);
+    drawUpgrade("(5)Health", spaceship, HEALTH_POS, world);
+    drawUpgrade("(6)Range", spaceship, RANGE_POS, world);
  
     handleUpgrades(spaceship, world);
-    if (IsKeyDown(KEY_G)){
-        spaceship->health = 8;
-    }
     EndDrawing();
 }
 
@@ -85,6 +84,24 @@ void handleUpgrades(Spaceship *spaceship, World *world){
         int cost = (numOfUpgrades + 1) * COST_INC;
         if (world->points >= cost && numOfUpgrades < MAX_UPGRADES){
             spaceship->bullet_speed += BULLET_SPEED_INC;
+            world->points -= cost;
+            msleep(500);
+        }
+    }
+    if (IsKeyDown(KEY_FIVE)){
+        int numOfUpgrades = calculateNumberOfUpgrades(spaceship, HEALTH_POS);
+        int cost = (numOfUpgrades + 1) * COST_INC;
+        if (world->points >= cost && numOfUpgrades < MAX_UPGRADES){
+            spaceship->total_health += HEALTH_INC;
+            world->points -= cost;
+            msleep(500);
+        }
+    }
+    if (IsKeyDown(KEY_SIX)){
+        int numOfUpgrades = calculateNumberOfUpgrades(spaceship, RANGE_POS);
+        int cost = (numOfUpgrades + 1) * COST_INC;
+        if (world->points >= cost && numOfUpgrades < MAX_UPGRADES){
+            spaceship->range += RANGE_INC;
             world->points -= cost;
             msleep(500);
         }

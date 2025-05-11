@@ -8,15 +8,6 @@
 #include "raylib.h"
 #include <stdlib.h>
 /*
-Game Design
-- 10 pre determined waves
-- clear one wave before next one starts
-- have to kill all enemies in a given wave
-- 10th wave is always boss
-- harder and more enemies with higher wave counts
-- player earns points for kills
-- player can upgrade after each attempt
-
 Future Plans:
 - more waves
 - waves start after time limit, don't wait for previous waves
@@ -25,12 +16,11 @@ Future Plans:
 - graphics
 - sound
 - stars in background
+- read from file so status can be saved
 
 TODOs:
-Read from file so status can be saved
-Upgrdae Menu
-Handle Player Death (take them to upgrade menu)
 Finish making the 10 waves
+Balance the game
 */
 
 //------------------------------------------------------------------------------------
@@ -81,7 +71,11 @@ int main(void)
                 EndDrawing();
         //player has 0 health
         } else {
-            drawUpgradeMenu(&spaceship, &world);
+            drawUpgradeMenu(&spaceship, &world, &enemyWave);
+            if (IsKeyDown(KEY_G)){
+                resetWaves(&enemyWave);
+                resetAfterDeath(&spaceship);
+            }
         }
         //----------------------------------------------------------------------------------
     }

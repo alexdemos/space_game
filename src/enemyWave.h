@@ -13,6 +13,7 @@ typedef struct EnemyWave{
 void updateEnemyWave(EnemyWave *enemyWave, World *world);
 void drawEnemyWave(EnemyWave *enemyWave);
 void freeEnemyWave(EnemyWave *enemyWave);
+void resetWaves(EnemyWave *enemyWave);
 
 //enemy wave factory
 EnemyWave createNewWave(int wave);
