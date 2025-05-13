@@ -45,6 +45,9 @@ EnemyWave createNewWave(int wave){
         case 3:
             return createEnemyWaveThree(wave);
             break;
+        case 4:
+            return createEnemyWaveFour(wave);
+            break;
         default:
             return createEnemyWaveTwo(wave);
             break;
@@ -62,6 +65,7 @@ EnemyWave createEnemyWaveOne(int wave){
         Enemy *enemy = createBasicEnemy();
         enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width;
         enemy->rectangle.y = (200 * i) + 200;
+        enemy->speed = 5;
         enemies[i] = enemy;
     }
     enemyWave.enemies = enemies;
@@ -82,7 +86,7 @@ EnemyWave createEnemyWaveTwo(int wave){
         Enemy *enemy = createBasicEnemy();
         enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width;
         enemy->rectangle.y = (i+1) * (GetScreenHeight()/(basicEnemies+1));
-        enemy->y_speed = 5;
+        enemy->y_speed = 3+i;
         enemies[i] = enemy;
     }
     for(i=basicEnemies; i<enemyWave.enemyAmount; i++){
@@ -106,7 +110,45 @@ EnemyWave createEnemyWaveThree(int wave){
         Enemy *enemy = createFastEnemy();
         enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width + (200*i);
         enemy->rectangle.y = 200;
+        enemy->speed = 6;
         enemy->pattern=SIN_PATTERN;
+        enemies[i] = enemy;
+    }
+    enemyWave.enemies = enemies;
+    return enemyWave;
+}
+
+EnemyWave createEnemyWaveFour(int wave){
+    EnemyWave enemyWave;
+    enemyWave.wave = wave;
+    int basic = 3;
+    int beef = 3;
+    int fast = 3;
+    enemyWave.enemyAmount = basic + beef + fast;
+    enemyWave.currentEnemyAmount = enemyWave.enemyAmount;
+    Enemy **enemies = malloc(sizeof(*enemies) * enemyWave.enemyAmount);
+    int i;
+    for(i=0; i<basic; i++){
+        Enemy *enemy = createBasicEnemy();
+        enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width + (200);
+        enemy->rectangle.y = 0;
+        enemy->speed = 7;
+        enemy->y_speed = i;
+        enemies[i] = enemy;
+    }
+    for(i=basic; i<basic+beef; i++){
+        Enemy *enemy = createBeefEnemy();
+        enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width + (200);
+        enemy->rectangle.y = 0;
+        enemy->y_speed = i;
+        enemies[i] = enemy;
+    }
+    for(i=basic+beef; i<enemyWave.enemyAmount; i++){
+        Enemy *enemy = createFastEnemy();
+        enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width + (200 * (i-6));
+        enemy->rectangle.y = 200;
+        enemy->pattern = SIN_PATTERN;
+        enemy->speed = 5;
         enemies[i] = enemy;
     }
     enemyWave.enemies = enemies;

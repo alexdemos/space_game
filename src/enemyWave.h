@@ -20,5 +20,6 @@ EnemyWave createNewWave(int wave);
 EnemyWave createEnemyWaveOne(int wave);
 EnemyWave createEnemyWaveTwo(int wave);
 EnemyWave createEnemyWaveThree(int wave);
+EnemyWave createEnemyWaveFour(int wave);
 
 #endif

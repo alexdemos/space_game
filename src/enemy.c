@@ -20,18 +20,20 @@ int updateEnemy(Enemy *enemy, World *world){
        && enemy->init == 1){
         enemy->speed *= -1;
     }
-    if((enemy->rectangle.y < 0 || enemy->rectangle.y > GetScreenHeight() - enemy->rectangle.height) \
-       && enemy->init == 1){
-        enemy->y_speed *= -1;
-    }
     return 0;
 }
 
 void updateY(Enemy *enemy){
     switch(enemy->pattern){
         case 1:
-            enemy->rectangle.y = ((GetScreenHeight()/2)-30) * (1+sin(enemy->rectangle.x/70));
+            enemy->rectangle.y = ((GetScreenHeight()/2)-30) * \
+            (1+sin(enemy->rectangle.x/70));
             break;
+        default:
+            if((enemy->rectangle.y < 0 || enemy->rectangle.y > GetScreenHeight() - enemy->rectangle.height) \
+                && enemy->init == 1){
+                enemy->y_speed *= -1;
+    }
     }
 }
 
@@ -64,7 +66,7 @@ Enemy* createBasicEnemy(){
     enemy->rectangle = rectangle;
     enemy->health = 30;
     enemy->points = 10;
-    enemy->speed = 10;
+    enemy->speed = 8;
     enemy->y_speed = 0;
     enemy->color = PURPLE;
     enemy->active = 1;

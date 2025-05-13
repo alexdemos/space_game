@@ -9,7 +9,7 @@ static const int DAMAGE_INC = 10;
 static const int DAMAGE_POS = 0;
 
 static const int BASE_SPEED = 5;
-static const int SPEED_INC = 3;
+static const int SPEED_INC = 1;
 static const int SPEED_POS = 1;
 
 static const int BASE_FIRE_RATE = 20;
