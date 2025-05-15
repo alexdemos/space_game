@@ -24,11 +24,19 @@ int updateEnemy(Enemy *enemy, World *world){
 }
 
 void updateY(Enemy *enemy){
+    int y_speed;
     switch(enemy->pattern){
         case 1:
             enemy->rectangle.y = ((GetScreenHeight()/2)-30) * \
             (1+sin(enemy->rectangle.x/70));
             break;
+        case 2:
+            y_speed = (rand() % 21) - 10;
+            enemy->rectangle.y  += y_speed;
+            if((enemy->rectangle.y < 0 || enemy->rectangle.y > GetScreenHeight() - enemy->rectangle.height) \
+                && enemy->init == 1){
+                    enemy->rectangle.y -= 2 * y_speed;
+                }
         default:
             if((enemy->rectangle.y < 0 || enemy->rectangle.y > GetScreenHeight() - enemy->rectangle.height) \
                 && enemy->init == 1){

@@ -5,6 +5,7 @@
 
 static int const LINE_PATTERN = 0;
 static int const SIN_PATTERN = 1;
+static int const RAND_PATTERN = 2;
 
 typedef struct enemy{
     int health;

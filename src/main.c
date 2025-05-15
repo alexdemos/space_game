@@ -40,7 +40,7 @@ int main(void)
 
     Bullet **bullets = initBullets(world.maxBullets);
     Spaceship spaceship = initSpaceship();
-    EnemyWave enemyWave = createNewWave(4);
+    EnemyWave enemyWave = createNewWave(5);
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------

@@ -48,6 +48,9 @@ EnemyWave createNewWave(int wave){
         case 4:
             return createEnemyWaveFour(wave);
             break;
+        case 5:
+            return createEnemyWaveFive(wave);
+            break;
         default:
             return createEnemyWaveTwo(wave);
             break;
@@ -150,6 +153,25 @@ EnemyWave createEnemyWaveFour(int wave){
         enemy->pattern = SIN_PATTERN;
         enemy->speed = 5;
         enemies[i] = enemy;
+    }
+    enemyWave.enemies = enemies;
+    return enemyWave;
+}
+
+EnemyWave createEnemyWaveFive(int wave){
+    EnemyWave enemyWave;
+    enemyWave.wave = wave;
+    enemyWave.enemyAmount = 16;
+    enemyWave.currentEnemyAmount = enemyWave.enemyAmount;
+    Enemy **enemies = malloc(sizeof(*enemies) * enemyWave.enemyAmount);
+    int i;
+    for(i=0; i<enemyWave.enemyAmount; i++){
+        Enemy *enemy = createBeefEnemy();
+        enemy->rectangle.x = GetScreenWidth() + enemy->rectangle.width;
+        enemy->rectangle.y = ((enemy->rectangle.height+10) * i);
+        enemy->speed = (rand() % 6) + 5;
+        enemies[i] = enemy;
+        enemy->pattern = RAND_PATTERN;
     }
     enemyWave.enemies = enemies;
     return enemyWave;
